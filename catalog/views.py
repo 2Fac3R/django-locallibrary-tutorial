@@ -16,15 +16,19 @@ def index(request):
 
     # Number of visits to this view, as counted in the session variable.
     num_visits = request.session.get('num_visits', 1)
-    request.session['num_visits'] = num_visits+1
+    request.session['num_visits'] = num_visits + 1
 
     # Render the HTML template index.html with the data in the context variable.
     return render(
         request,
         'index.html',
-        context={'num_books': num_books, 'num_instances': num_instances,
-                 'num_instances_available': num_instances_available, 'num_authors': num_authors,
-                 'num_visits': num_visits},
+        context = {
+            'num_books': num_books, 
+            'num_instances': num_instances,
+            'num_instances_available': num_instances_available, 
+            'num_authors': num_authors,
+            'num_visits': num_visits
+        },
     )
 
 
@@ -65,8 +69,6 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
-
-# Added as part of challenge!
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -149,7 +151,6 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.can_mark_returned'
 
 
-# Classes created for the forms challenge
 class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']

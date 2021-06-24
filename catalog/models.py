@@ -8,9 +8,9 @@ from django.urls import reverse  # To generate URLS by reversing URL patterns
 class Genre(models.Model):
     """Model representing a book genre (e.g. Science Fiction, Non Fiction)."""
     name = models.CharField(
-        max_length=200,
-        help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
-        )
+        max_length = 200, 
+        help_text = "Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
+    )
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
@@ -19,8 +19,10 @@ class Genre(models.Model):
 
 class Language(models.Model):
     """Model representing a Language (e.g. English, French, Japanese, etc.)"""
-    name = models.CharField(max_length=200,
-                            help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+    name = models.CharField(
+        max_length = 200, 
+        help_text = "Enter the book's natural language (e.g. English, French, Japanese etc.)"
+    )
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
@@ -34,10 +36,9 @@ class Book(models.Model):
     # Foreign Key used because book can only have one author, but authors can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the book")
-    isbn = models.CharField('ISBN', max_length=13,
-                            unique=True,
-                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
-                                      '">ISBN number</a>')
+    isbn = models.CharField('ISBN', max_length=13, unique=True,
+        help_text = '13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>'
+    )
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
     # ManyToManyField used because a genre can contain many books and a Book can cover many genres.
     # Genre class has already been defined so we can specify the object above.
@@ -90,11 +91,12 @@ class BookInstance(models.Model):
     )
 
     status = models.CharField(
-        max_length=1,
-        choices=LOAN_STATUS,
-        blank=True,
-        default='d',
-        help_text='Book availability')
+        max_length = 1,
+        choices = LOAN_STATUS,
+        blank = True,
+        default = 'd',
+        help_text = 'Book availability'
+    )
 
     class Meta:
         ordering = ['due_back']
