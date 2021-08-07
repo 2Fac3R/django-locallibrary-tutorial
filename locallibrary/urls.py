@@ -50,3 +50,9 @@ urlpatterns += [
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+import notifications.urls
+
+urlpatterns += [
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
+]
